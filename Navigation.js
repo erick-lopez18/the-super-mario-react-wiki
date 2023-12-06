@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import MainMenuScreen from './screens/MainMenuScreen';
-import DataTableScreen from './screens/DataTableScreen';
+import CharTableScreen from './screens/CharTableScreen';
+import GameTableScreen from './screens/GameTableScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +12,8 @@ function AppNavigator() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="MainMenu">
                 <Stack.Screen name="MainMenu" component={MainMenuScreen} />
-                <Stack.Screen name="DataTable" component={DataTableScreen} />
+                <Stack.Screen name="CharTable" component={CharTableScreen} />
+                <Stack.Screen name="GameTable" component={GameTableScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

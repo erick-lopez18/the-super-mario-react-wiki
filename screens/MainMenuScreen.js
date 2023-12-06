@@ -1,46 +1,79 @@
-import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, TextInput, FlatList } from 'react-native';
+import { appStyles } from '../styles/AppStyles';
+import { fetchDataFromAPI } from '../utils/api';
 
 const MainMenuScreen = ({ navigation }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+    const [data, setData] = useState(null);
+
+    // Obtiene los datos de la API
+    useEffect(() => {
+        fetchData();
+      }, []);
+
+      const fetchData = async () => {
+        try {
+          const result = await fetchDataFromAPI('yourSearchTerm');
+          setData(result);
+        } catch (error) {
+          console.error('Error al obtener datos:', error.message);
+        }
+      };
+
+      // Función para manejar la búsqueda
+  const handleSearch = async () => {
+    try {
+      const results = await fetchDataFromAPI(searchTerm);
+      setSearchResults(results);
+    } catch (error) {
+      console.error('Error al obtener datos de búsqueda:', error.message);
+    }
+  };
+
     return (
-        <View style={styles.container}>
-            {/* Cambiar el nombre de la barra de título */}
-            <View style={styles.header}>
-                {/* Agregar el nombre deseado */}
-                <Text style={styles.headerText}>Menú principal</Text>
+        <View style={appStyles.container}>
+            <View style={appStyles.header}>
+                <Text style={appStyles.headerText}>Menú principal</Text>
             </View>
-            <Button
-                title="Ir a tabla de datos"
-                onPress={() => navigation.navigate('DataTable')}
+            <TextInput
+        style={appStyles.input}
+        placeholder="Buscar..."
+        value={searchTerm}
+        onChangeText={(text) => setSearchTerm(text)}
+      />
+      <Button style={appStyles.button} title="Buscar" onPress={handleSearch} />
+
+      {searchResults.length > 0 && (
+        <View>
+          <Text>Resultados de la búsqueda:</Text>
+          <FlatList
+            data={searchResults}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View>
+                <Text>{item.name}</Text>
+                {/* Puedes renderizar otros datos relevantes del resultado aquí */}
+              </View>
+            )}
+          />
+        </View>
+      )}
+            <Button style={appStyles.button}
+                title="Personajes"
+                onPress={() => navigation.navigate('CharTable')}
             />
-            <View style={styles.bodyText}>
-                <Text >Mario API React</Text>
+            <Button style={appStyles.button}
+                title="Videojuegos"
+                onPress={() => navigation.navigate('GameTable')}
+            />
+            <View style={appStyles.bodyText}>
+                <Text >Mario API en React Native</Text>
                 <Text>Hola :-)</Text>
             </View>
-
-            {/*<StatusBar style="auto" />*/}
         </View>
     );
 };
 
 export default MainMenuScreen;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#e0e0e0',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    header: {
-        marginBottom: 20,
-    },
-    headerText: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    },
-    bodyText: {
-        padding: 20,
-        alignItems: 'center',
-    }
-});

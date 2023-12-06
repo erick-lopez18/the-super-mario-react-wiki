@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, FlatList, Text, StyleSheet } from 'react-native';
 
-const DataTableScreen = ({ navigation }) => {
+const CharTableScreen = ({ navigation }) => {
     // Ejemplo de datos de tabla
     const chardata = [
         { key: '1', name: 'Mario', debut: 'Donkey Kong' },
@@ -52,7 +52,7 @@ const DataTableScreen = ({ navigation }) => {
     );
 };
 
-export default DataTableScreen;
+export default CharTableScreen;
 
 const styles = StyleSheet.create({
     container: {
