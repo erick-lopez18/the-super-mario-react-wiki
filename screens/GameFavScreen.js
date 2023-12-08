@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Button, FlatList, Text, StyleSheet } from 'react-native';
 import { appStyles } from '../styles/AppStyles';
 
-const CharTableScreen = ({ navigation }) => {
+const GameFavScreen = ({ navigation }) => {
     // Ejemplo de datos de tabla
     const chardata = [
         { key: '1', game: 'Donkey Kong', launch: '9 de julio de 1981' },
@@ -18,7 +18,7 @@ const CharTableScreen = ({ navigation }) => {
     const header = (
         <View style={[styles.row, styles.header]}>
             <Text style={styles.headerCell}>Juego</Text>
-            <Text style={styles.headerCell}>Fecha de lanzamiento</Text>
+            <Text style={appStyles.headerCell}>Fecha de lanzamiento</Text>
         </View>
     );
 
@@ -32,35 +32,34 @@ const CharTableScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Button style={appStyles.button}
-                title="Regresar al menú principal"
-                color="#ff0000"
-                onPress={() => navigation.navigate('MainMenu')}
-            />
             {/* Cambiar el nombre de la barra de título */}
             <View style={styles.headerBody}>
                 {/* Agregar el nombre deseado */}
-                <Text style={appStyles.headerText}>Videojuegos publicados</Text>
+                <Text style={appStyles.headerText}>Juegos favoritos</Text>
             </View>
-            
+            <Button
+                title="Regresar al menú principal"
+                onPress={() => navigation.navigate('MainMenu')}
+                color="#ff0000"
+            />
             {/* Tabla de datos */}
             <FlatList
                 ListHeaderComponent={header}
                 data={chardata}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.key}
-                style={styles.table}
+                style={appStyles.table}
             />
         </View>
     );
 };
 
-export default CharTableScreen;
+export default GameFavScreen;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#e0e0e0',
         padding: 20,
     },
     headerBody: {
@@ -68,21 +67,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    headerText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
+        borderBottomColor: '#2c3e50',
     },
     cell: {
         flex: 1,
         textAlign: 'center',
     },
     header: {
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '#e0e0e0',
         borderBottomWidth: 2,
-        borderBottomColor: '#ddd',
+        borderBottomColor: '#2c3e50',
     },
     headerCell: {
         flex: 1,

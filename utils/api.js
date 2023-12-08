@@ -1,14 +1,26 @@
-import axios from 'axios';
+const API_URL = 'http://192.168.152.1:5000';
 
-const API_URL = 'http://192.168.43.47:8081';
-
-export const fetchDataFromAPI = async (searchTerm) => {
+export const fetchDataFromAPI = async (id) => {
     try {
-        const response = await axios.get(`${API_URL}/characters/?q=${searchTerm}`);
-        const data = response.data;
-        return data;
+        apiUrl = `${API_URL}/characters/${id}`;
+
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Error en la solicitud a la API');
+        }
+
+        const responseData = await response.json();
+        console.log('Respuesta completa de la API:', responseData);
+
+        if (response.headers.get('content-type').includes('application/json')) {
+            if (responseData && Object.keys(responseData).length > 0) {
+                return [responseData];
+            } else {
+                console.error('La respuesta de la API no tiene datos válidos.');
+            }
+        }
     } catch (error) {
-        console.error('Error al buscar datos:', error.message);
+        console.error('Error al procesar la solicitud:', error.message);
         throw error;
     }
 };

@@ -2,16 +2,15 @@ import React from 'react';
 import { View, Button, FlatList, Text, StyleSheet } from 'react-native';
 import { appStyles } from '../styles/AppStyles';
 
-const CharTableScreen = ({ navigation }) => {
+const CharFavScreen = ({ navigation }) => {
     // Ejemplo de datos de tabla
     const chardata = [
-        { key: '1', game: 'Donkey Kong', launch: '9 de julio de 1981' },
-        { key: '2', game: 'Mario Bros.', launch: '14 de julio de 1983.' },
-        { key: '3', game: 'Super Mario Bros.', launch: '14 de julio de 1983' },
-        { key: '4', game: 'Super Mario Bros. 2', launch: '9 de octubre de 1988' },
-        { key: '5', game: 'Super Mario Bros. 3', launch: '23 de octubre de 1988' },
-        { key: '6', game: 'Super Mario World', launch: '21 de noviembre de 1990' },
-        // Agrega más datos según sea necesario
+        { key: '1', name: 'Mario', debut: 'Donkey Kong' },
+        { key: '2', name: 'Luigi', debut: 'Mario Bros.' },
+        { key: '3', name: 'Peach', debut: 'Super Mario Bros.' },
+        { key: '4', name: 'Toad', debut: 'Super Mario Bros.' },
+        { key: '5', name: 'Bowser', debut: 'Super Mario Bros.' },
+        { key: '6', name: 'Donkey Kong', debut: 'Donkey Kong' },
     ];
 
     // Encabezado de la tabla
@@ -25,42 +24,41 @@ const CharTableScreen = ({ navigation }) => {
     // Renderiza cada fila de la tabla
     const renderItem = ({ item }) => (
         <View style={styles.row}>
-            <Text style={styles.cell}>{item.game}</Text>
-            <Text style={styles.cell}>{item.launch}</Text>
+            <Text style={styles.cell}>{item.name}</Text>
+            <Text style={styles.cell}>{item.debut}</Text>
         </View>
     );
 
     return (
         <View style={styles.container}>
-            <Button style={appStyles.button}
-                title="Regresar al menú principal"
-                color="#ff0000"
-                onPress={() => navigation.navigate('MainMenu')}
-            />
             {/* Cambiar el nombre de la barra de título */}
             <View style={styles.headerBody}>
                 {/* Agregar el nombre deseado */}
-                <Text style={appStyles.headerText}>Videojuegos publicados</Text>
+                <Text style={appStyles.headerText}>Personajes favoritos</Text>
             </View>
-            
+            <Button
+                title="Regresar al menú principal"
+                onPress={() => navigation.navigate('MainMenu')}
+                color="#ff0000"
+            />
             {/* Tabla de datos */}
             <FlatList
                 ListHeaderComponent={header}
                 data={chardata}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.key}
-                style={styles.table}
+                style={appStyles.table}
             />
         </View>
     );
 };
 
-export default CharTableScreen;
+export default CharFavScreen;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#e0e0e0',
         padding: 20,
     },
     headerBody: {
@@ -68,21 +66,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    headerText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
+        borderBottomColor: '#2c3e50',
     },
     cell: {
         flex: 1,
         textAlign: 'center',
     },
     header: {
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '#e0e0e0',
         borderBottomWidth: 2,
-        borderBottomColor: '#ddd',
+        borderBottomColor: '#2c3e50',
     },
     headerCell: {
         flex: 1,
